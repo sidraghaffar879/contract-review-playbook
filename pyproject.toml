@@ -1,0 +1,19 @@
+[project]
+name = "contract-review-playbook"
+version = "0.1.0"
+description = "AI contract review against a negotiation playbook: clause classification, machine-checkable deviations, redlines and a risk score"
+requires-python = ">=3.10"
+dependencies = ["pyyaml>=6", "pypdf>=4", "fastapi>=0.110", "uvicorn>=0.29", "python-multipart>=0.0.9"]
+[project.optional-dependencies]
+docx = ["python-docx>=1.1"]
+anthropic = ["anthropic>=0.30"]
+openai = ["openai>=1.30"]
+aws = ["boto3>=1.34"]
+dev = ["pytest>=8", "httpx>=0.27"]
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.setuptools.package-data]
+contractreview = ["playbook.yaml"]

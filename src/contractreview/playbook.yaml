@@ -1,0 +1,57 @@
+# Your organisation's negotiation positions. Each clause type has a standard position, an acceptable fallback,
+# machine-checkable parameters, and a risk weight used in the overall score.
+clauses:
+  limitation_of_liability:
+    weight: 5
+    required: true
+    standard: "Each party's liability capped at 12 months' fees; mutual; carve-outs only for confidentiality, IP infringement, gross negligence."
+    fallback: "Cap between 12 and 24 months' fees is acceptable with the same carve-outs."
+    params: {cap_months_min: 12, cap_months_max: 24, must_be_mutual: true, uncapped_allowed: false}
+  indemnification:
+    weight: 4
+    required: true
+    standard: "Mutual indemnities limited to third-party IP claims and breach of confidentiality."
+    fallback: "Customer-only IP indemnity acceptable if capped."
+    params: {must_be_mutual: true}
+  payment_terms:
+    weight: 2
+    required: true
+    standard: "Net 30 from invoice."
+    fallback: "Net 45 acceptable; interest on late payment no more than 1% per month."
+    params: {net_days_max: 45, late_interest_pct_max: 1.0}
+  termination:
+    weight: 3
+    required: true
+    standard: "Either party may terminate for convenience with 30 days' notice; for cause with 30-day cure."
+    fallback: "60 days' notice for convenience."
+    params: {notice_days_max: 60}
+  auto_renewal:
+    weight: 2
+    required: false
+    standard: "No auto-renewal, or auto-renewal for periods no longer than 12 months with at least 30 days' opt-out notice."
+    fallback: "Auto-renewal of 12 months with 60-day opt-out."
+    params: {renewal_term_months_max: 12, optout_notice_days_max: 60}
+  governing_law:
+    weight: 2
+    required: true
+    standard: "Laws of England and Wales, courts of London; or DIFC."
+    fallback: "New York or Delaware acceptable."
+    params: {allowed_jurisdictions: ["england", "wales", "london", "difc", "dubai international financial centre", "new york", "delaware"]}
+  confidentiality:
+    weight: 3
+    required: true
+    standard: "Mutual, survives 3 years post termination."
+    fallback: "Survival up to 5 years."
+    params: {must_be_mutual: true, survival_years_max: 5}
+  non_compete:
+    weight: 4
+    required: false
+    standard: "No non-compete or exclusivity obligations on us."
+    fallback: "None."
+    params: {allowed: false}
+  data_protection:
+    weight: 4
+    required: true
+    standard: "DPA attached; processor obligations under GDPR/UAE PDPL; breach notification within 72 hours."
+    fallback: "Breach notification within 5 days."
+    params: {breach_notice_hours_max: 120}
